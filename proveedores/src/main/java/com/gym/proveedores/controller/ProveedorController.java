@@ -30,7 +30,7 @@ public class ProveedorController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar por id",descripcion = "Buscar proveedor por id")
+    @Operation(summary = "Buscar por id",description  = "Buscar proveedor por id")
     public ResponseEntity<ProveedorResponseDto> buscarPorId(@PathVariable Long id) {
         return proveedorService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
@@ -39,14 +39,14 @@ public class ProveedorController {
 
     
     @PostMapping
-    @Operation(summary="Crear proveedor",descripcion = "Permite crear un proveedor ")
+    @Operation(summary="Crear proveedor",description = "Permite crear un proveedor ")
     public ResponseEntity<ProveedorResponseDto> crear(@Valid @RequestBody ProveedorRequestDto dto) {
         ProveedorResponseDto nuevo = proveedorService.guardar(dto);
         return new ResponseEntity<>(nuevo, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Actualizar Proveedor", descripcion = "Permite actualizar el proveedor mediante su id y dto")
+    @Operation(summary = "Actualizar Proveedor", description = "Permite actualizar el proveedor mediante su id y dto")
     public ResponseEntity<ProveedorResponseDto> actualizar(@PathVariable Long id, @Valid @RequestBody ProveedorRequestDto dto) {
         return proveedorService.actualizar(id, dto)
                 .map(ResponseEntity::ok)
@@ -55,7 +55,7 @@ public class ProveedorController {
 
  
     @DeleteMapping("/{id}")
-    @Operation(summary = "Eliminar Proveedor", decripcion = "Permite eliminar el proveedor mediante su id ")
+    @Operation(summary = "Eliminar Proveedor", description = "Permite eliminar el proveedor mediante su id ")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         try {
             proveedorService.eliminar(id);

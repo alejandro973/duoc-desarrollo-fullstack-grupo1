@@ -8,11 +8,11 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.5</version> <relativePath/> </parent>
 
-    <groupId>com.gym</groupId>
-    <artifactId>contratos</artifactId>
+   <groupId>com.gym</groupId>
+    <artifactId>proveedores</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>contratos</name>
-    <description>Microservicio Orquestador de Contratos Externos</description>
+    <name>proveedores</name>
+    <description>Microservicio de Proveedores</description>
 
     <properties>
         <java.version>17</java.version>
@@ -60,6 +60,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
