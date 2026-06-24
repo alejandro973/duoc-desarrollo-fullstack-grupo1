@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: eureka-server
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false # Le dice: "No te registres a ti mismo"
+    fetch-registry: false       # Le dice: "No necesitas descargar una lista externa, tú eres la lista"
