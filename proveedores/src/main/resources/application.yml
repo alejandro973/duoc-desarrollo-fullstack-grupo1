@@ -1,0 +1,21 @@
+server:
+  port: 8090
+
+spring:
+  application:
+     name: proveedores
+
+  profiles:
+    active: test
+
+# Habilitación técnica de OpenAPI y Swagger UI para Proveedores
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+# Habilitación técnica de OpenAPI y Swagger UI para Proveedores
+
+
