@@ -1,0 +1,77 @@
+server:
+  port: 8080 
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Permite buscar los servicios dinámicamente en Eureka
+      routes:
+        # 1. Rutas para Socios
+        - id: socios
+          uri: lb://SOCIOS
+          predicates:
+            - Path=/api/socios/**
+
+        # 2. Rutas para Clases
+        - id: clases
+          uri: lb://CLASES
+          predicates:
+            - Path=/api/clases/**
+
+        # 3. Rutas para Proveedores
+        - id: proveedores
+          uri: lb://PROVEEDORES
+          predicates:
+            - Path=/api/proveedores/**
+
+        # 4. Rutas para Mantenimiento
+        - id: mantenimiento
+          uri: lb://MANTENIMIENTO
+          predicates:
+            - Path=/api/mantenimiento/**
+
+        # 5. Rutas para Planes
+        - id: planes
+          uri: lb://PLANES
+          predicates:
+            - Path=/api/planes/**
+
+        # 6. Rutas para Sucursales
+        - id: sucursales
+          uri: lb://SUCURSALES
+          predicates:
+            - Path=/api/sucursales/**
+
+        # 7. Rutas para Entrenadores
+        - id: entrenadores
+          uri: lb://ENTRENADORES
+          predicates:
+            - Path=/api/entrenadores/**
+
+        # 8. Rutas para Contratos
+        - id: contratos
+          uri: lb://CONTRATOS
+          predicates:
+            - Path=/api/contratos/**
+
+        # 9. Rutas para Equipamiento
+        - id: equipamiento
+          uri: lb://EQUIPAMIENTO
+          predicates:
+            - Path=/api/equipamiento/**
+
+        # 10. Rutas para Empleados
+        - id: empleados
+          uri: lb://EMPLEADOS
+          predicates:
+            - Path=/api/empleados/**
+
+# Conexión fundamental con el servidor central de Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
