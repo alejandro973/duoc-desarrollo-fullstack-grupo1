@@ -1,9 +1,7 @@
 version: '3.8'
 
 services:
-  # ----------------------------------------------------
-  # BASE DE DATOS: MySQL Centralizado
-  # ----------------------------------------------------
+  # 1. BASE DE DATOS: MySQL Centralizado
   gym-mysql:
     image: mysql:8.0
     container_name: gym-mysql-container
@@ -17,9 +15,182 @@ services:
     networks:
       - gym-network
 
-# ----------------------------------------------------
-# CONFIGURACIONES GLOBALES (Redes y Volúmenes)
-# ----------------------------------------------------
+  # 2. SERVIDOR DE DESCUBRIMIENTO: Eureka Server
+  gym-eureka:
+    image: gym-eureka:1.0
+    container_name: gym-eureka-container
+    ports:
+      - "8761:8761"
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
+      - EUREKA_CLIENT_FETCH_REGISTRY=false
+
+  # 3. ENRUTADOR: API Gateway
+  gym-gateway:
+    image: gym-gateway:1.0
+    container_name: gym-gateway-container
+    ports:
+      - "8080:8080"
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+    depends_on:
+      - gym-eureka
+
+  # 4. MICROSERVICIO: Clases
+  gym-clases:
+    image: gym-clases:1.0
+    container_name: gym-clases-container
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gym-mysql:3306/db_gym_clases?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - gym-mysql
+      - gym-eureka
+
+  # 5. MICROSERVICIO: Socios
+  gym-socios:
+    image: gym-socios:1.0
+    container_name: gym-socios-container
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gym-mysql:3306/db_gym_socios?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - gym-mysql
+      - gym-eureka
+
+  # 6. MICROSERVICIO: Contratos
+  gym-contratos:
+    image: gym-contratos:1.0
+    container_name: gym-contratos-container
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gym-mysql:3306/db_gym_contratos?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - gym-mysql
+      - gym-eureka
+
+  # 7. MICROSERVICIO: Entrenadores
+  gym-entrenadores:
+    image: gym-entrenadores:1.0
+    container_name: gym-entrenadores-container
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gym-mysql:3306/db_gym_entrenadores?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - gym-mysql
+      - gym-eureka
+
+  # 8. MICROSERVICIO: Equipamiento
+  gym-equipamento:
+    image: gym-equipamento:1.0
+    container_name: gym-equipamiento-container
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gym-mysql:3306/db_gym_equipamento?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - gym-mysql
+      - gym-eureka
+
+  # 9. MICROSERVICIO: Inscripciones
+  gym-inscripciones:
+    image: gym-inscripciones:1.0
+    container_name: gym-inscripciones-container
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gym-mysql:3306/db_gym_inscripciones?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - gym-mysql
+      - gym-eureka
+
+  # 10. MICROSERVICIO: Mantenimiento
+  gym-mantenimiento:
+    image: gym-mantenimiento:1.0
+    container_name: gym-mantenimiento-container
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gym-mysql:3306/db_gym_mantenimiento?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - gym-mysql
+      - gym-eureka
+
+  # 11. MICROSERVICIO: Planes
+  gym-planes:
+    image: gym-planes:1.0
+    container_name: gym-planes-container
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gym-mysql:3306/db_gym_planes?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - gym-mysql
+      - gym-eureka
+
+  # 12. MICROSERVICIO: Proveedores
+  gym-proveedores:
+    image: gym-proveedores:1.0
+    container_name: gym-proveedores-container
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gym-mysql:3306/db_gym_proveedores?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - gym-mysql
+      - gym-eureka
+
+  # 13. MICROSERVICIO: Sucursales
+  gym-sucursales:
+    image: gym-sucursales:1.0
+    container_name: gym-sucursales-container
+    networks:
+      - gym-network
+    environment:
+      - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://gym-eureka:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://gym-mysql:3306/db_gym_sucursales?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - gym-mysql
+      - gym-eureka
+
+# CONFIGURACIONES GLOBALES
 networks:
   gym-network:
     driver: bridge
