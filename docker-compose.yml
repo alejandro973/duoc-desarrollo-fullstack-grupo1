@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------
+  # BASE DE DATOS: MySQL Centralizado
+  # ----------------------------------------------------
+  gym-mysql:
+    image: mysql:8.0
+    container_name: gym-mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+    ports:
+      - "3306:3306"
+    volumes:
+      - gym-db-data:/var/lib/mysql
+    networks:
+      - gym-network
+
+# ----------------------------------------------------
+# CONFIGURACIONES GLOBALES (Redes y Volúmenes)
+# ----------------------------------------------------
+networks:
+  gym-network:
+    driver: bridge
+
+volumes:
+  gym-db-data:
+    driver: local
