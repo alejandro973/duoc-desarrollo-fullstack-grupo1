@@ -76,6 +76,13 @@
             <scope>test</scope>
         </dependency>
 
+		
+		<dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+		
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -87,11 +94,6 @@
           <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
          </dependency>
 
-		   <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
 
 	</dependencies>
 	<dependencyManagement>

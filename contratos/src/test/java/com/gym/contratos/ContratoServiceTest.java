@@ -10,6 +10,7 @@ import com.gym.contratos.model.Contrato;
 import com.gym.contratos.repository.ContratoRepository;
 import com.gym.contratos.service.*;
 
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,12 +18,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class ContratoServiceTest {
 
     @Autowired

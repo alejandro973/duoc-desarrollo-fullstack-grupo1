@@ -1,21 +1,27 @@
 spring:
   application:
     name: mantenimiento
-  profiles:
-    active: test
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME:com.mysql.cj.jdbc.Driver}
+  jpa:
+    ddl-auto: update
+    show-sql: true
 
-server: 
+server:
   port: 8089
 
-# Habilitación técnica de OpenAPI y Swagger UI para Mantenimiento
+# Habilitación técnica de OpenAPI y Swagger UI
 springdoc:
-  api-docs:
+  api-docs: 
     enabled: true
-  swagger-ui:
+  swagger-ui: 
     enabled: true
     path: /swagger-ui.html
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE:http://localhost:8761/eureka/}
