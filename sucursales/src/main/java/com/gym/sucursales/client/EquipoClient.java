@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "equipamento", url = "http://localhost:8087/api/equipos")
+@FeignClient(name = "equipamento", url = "${FEIGN_URL_EQUIPAMENTO:http://localhost:8087/api/equipos}")
 public interface EquipoClient {
 
     // Usamos el endpoint que creamos en el micro de Equipamento

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 
 @Slf4j
-@Component
+//@Component
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
